@@ -23,7 +23,7 @@
           mat-icon-button
           (click)="drawer.toggle()"
         >
-          <mat-icon [matBadge]="productos.length"   matBadgeOverlap="false"  aria-label="Side nav toggle icon">shopping_cart</mat-icon>
+          <mat-icon [matBadge]="cartService.totalItems()"   matBadgeOverlap="false"  aria-label="Side nav toggle icon">shopping_cart</mat-icon>
         </button>
       
       </mat-toolbar>

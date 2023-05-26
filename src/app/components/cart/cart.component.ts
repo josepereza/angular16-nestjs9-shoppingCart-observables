@@ -8,15 +8,11 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  totalCart:number=0
-productos:Producto[]=[]
-constructor(private cartService:CartService){
-this.cartService.productos.subscribe(data=>{
-console.log('mi carrito ',data)
-this.productos=data
-this.totalCart=this.productos.reduce((prev,ac)=>prev + ac.precio,0)
-})
+ 
+constructor(public cartService:CartService){
+
 }
+
 borrar(indice:number){
   this.cartService.deleteProducto(indice)
 

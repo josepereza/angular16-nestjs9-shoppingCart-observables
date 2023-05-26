@@ -20,10 +20,9 @@ export class SidenavComponent {
       shareReplay()
     );
     constructor(){
-      this.cartService.productos.subscribe(data=>{
-        this.productos=data
+     
 
-      })
+      
     }
 
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 import { Producto } from '../interfaces/producto';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
@@ -7,25 +7,30 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 })
 export class CartService {
 
-private  cartProductos: Producto[]=[]
-private _productos:BehaviorSubject<Producto[]>
+public  cartProductos=signal<Producto[]>([])
+private  _productos=signal<Producto[]>([])
+public subTotal = computed(() => this.cartProductos().reduce((prev: any, curr: Producto) => {
+  return prev + curr.precio;
+}, 0));
+public totalItems = computed(() => this.cartProductos().length);
   constructor() { 
-    this._productos=new BehaviorSubject<Producto[]>([])
+   
   }
   addNewProducto(producto:Producto){
-    this.cartProductos.push(producto)
-    this._productos.next(this.cartProductos)
-
-  }
-  get productos(){
-    return this._productos.asObservable();
-  }
-
-  deleteProducto(indice:number){
-this.cartProductos.splice(indice,1)
-this._productos.next(this.cartProductos)
+    this.cartProductos.mutate((val) => {
+      val.push(producto);
+    });
 
   }
   
+
+  deleteProducto(indice:number){
+
+    this.cartProductos.mutate(val => {
+      const product = val.splice(indice, 1);
+
+
+  })
+}
 
 }
